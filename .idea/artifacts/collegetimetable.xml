@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="collegetimetable">
+    <output-path>$PROJECT_DIR$/out/artifacts/collegetimetable</output-path>
+    <root id="archive" name="collegetimetable.jar">
+      <element id="module-output" name="collegetimetableutils_main" />
+      <element id="library" level="project" name="Gradle: org.jsoup:jsoup:1.9.2" />
+      <element id="library" level="project" name="Gradle: com.google.code.gson:gson:2.7" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/meta/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
