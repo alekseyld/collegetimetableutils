@@ -30,6 +30,10 @@ public class FilesUtils {
 
     public static String saveTimeTableToCache(String group, TimeTable timeTable, boolean json) throws IOException {
 
+        if (timeTable.equals(DataUtils.getEmptyWeekTimeTable()).equals("")) {
+            return "";
+        }
+
         File cacheFile = new File(getCacheDir(), group + "." + "json");
 
         String isChanges = "";

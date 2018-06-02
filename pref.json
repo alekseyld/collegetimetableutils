@@ -1,5 +1,6 @@
 {
 	"rootUrl": "http://109.195.146.243/wp-content/uploads/time/",
+	"minimizeMdk": "true",
 	"abbreviationMap": {
 		"1": "neft/10_1_8.html",
 		"Т": "energy/10_1_8.html",

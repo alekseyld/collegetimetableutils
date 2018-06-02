@@ -8,7 +8,12 @@ import java.util.Map;
 public class ParsePreferences {
 
     String rootUrl;
+    boolean minimizeMdk;
     Map<String, String> abbreviationMap;
+
+    public boolean isMinimizeMdk() {
+        return minimizeMdk;
+    }
 
     public Map<String, String> getAbbreviationMap() {
         return abbreviationMap;

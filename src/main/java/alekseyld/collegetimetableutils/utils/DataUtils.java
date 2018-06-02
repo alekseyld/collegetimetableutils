@@ -307,7 +307,8 @@ public class DataUtils {
         //stringBuilder.append("Расписание группы ").append(timeTable.getGroup()).append("\n\n");
 
         for (Day day: timeTable.getDayList()) {
-            stringBuilder.append(getNormalizeDate(day.getDateName())).append("\n");
+            String dayName = getNormalizeDate(day.getDateName());
+            stringBuilder.append(dayName).append("\n");
 
             for (Lesson lesson: day.getDayLessons()){
                 if (!lesson.getName().equals(" ") && !lesson.getName().equals("")) {
@@ -317,7 +318,7 @@ public class DataUtils {
                     stringBuilder.append("\n\n");
                 }
             }
-            if (timeTable.getDayList().size() > 1)
+            if (!dayName.equals(""))
                 stringBuilder.append("----------------------------------------\n");
         }
 

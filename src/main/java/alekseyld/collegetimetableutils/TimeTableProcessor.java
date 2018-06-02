@@ -29,7 +29,7 @@ public class TimeTableProcessor {
             timeTable = DataUtils.parseDocument(document, group);
 
         } catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         return timeTable;
