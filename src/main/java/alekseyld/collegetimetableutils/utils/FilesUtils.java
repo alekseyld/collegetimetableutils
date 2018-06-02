@@ -1,5 +1,6 @@
 package alekseyld.collegetimetableutils.utils;
 
+import alekseyld.collegetimetableutils.entity.ParsePreferences;
 import alekseyld.collegetimetableutils.entity.TimeTable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -56,6 +57,22 @@ public class FilesUtils {
 
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
+    }
+
+    public static ParsePreferences getParsePreference() throws IOException {
+
+        File cacheFile = new File("pref.json");
+
+        if (!cacheFile.exists()) {
+            return null;
+        }
+
+        String json = readFile(cacheFile.getAbsolutePath(), Charset.defaultCharset());
+
+        Gson gson = new Gson();
+        Type parsepref = new TypeToken<ParsePreferences>(){}.getType();
+
+        return gson.fromJson(json, parsepref);
     }
 
     public static TimeTable getTimeTableFromCache(String group) throws IOException {

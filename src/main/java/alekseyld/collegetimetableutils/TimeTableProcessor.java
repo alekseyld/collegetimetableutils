@@ -60,11 +60,14 @@ public class TimeTableProcessor {
         }
 
         if (arguments.dayName != null) {
-            timeTable = DataUtils.getTimeTableByDateName(timeTable, arguments.dayName);
-        }
 
-        if (arguments.date != null) {
+            timeTable = DataUtils.getTimeTableByDateName(timeTable, arguments.dayName);
+        } else if (arguments.date != null) {
+
             timeTable = DataUtils.getTimeTableByDate(timeTable, arguments.date);
+        } else if (arguments.index != null) {
+
+            timeTable = DataUtils.getTimeTableByIndex(timeTable, arguments.index);
         }
 
         if (arguments.save) {

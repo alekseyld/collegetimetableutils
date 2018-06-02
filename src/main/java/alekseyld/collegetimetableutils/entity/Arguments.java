@@ -37,4 +37,7 @@ public class Arguments {
     //ba "28.05.2018"
     public Date date;
 
+    //bg "1,5"
+    public String index;
+
 }

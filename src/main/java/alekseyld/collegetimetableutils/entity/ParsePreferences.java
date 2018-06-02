@@ -8,6 +8,13 @@ import java.util.Map;
 public class ParsePreferences {
 
     String rootUrl;
-    Map<String, String> AbbrMap;
+    Map<String, String> abbreviationMap;
 
+    public Map<String, String> getAbbreviationMap() {
+        return abbreviationMap;
+    }
+
+    public String getRootUrl() {
+        return rootUrl;
+    }
 }

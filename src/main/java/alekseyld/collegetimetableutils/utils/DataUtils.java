@@ -65,64 +65,19 @@ public class DataUtils {
         }
 
         if (group.charAt(0) == '1' && neftGroups.contains(abbr)) {
-            url = "neft/10_1_8.html";
+            url = parsePreferences.getAbbreviationMap().get("1");
         } else {
             url = switchAbbr(abbr);
         }
 
         if (root.equals(""))
-            root = "http://109.195.146.243/wp-content/uploads/time/";
+            root = parsePreferences.getRootUrl();
 
         return url.equals("") ? url : root + url;
     }
 
     private static String switchAbbr(String abbr) {
-        switch (abbr) {
-            case "Т":
-                return "energy/10_1_8.html";
-            case "Э":
-                return "energy/10_1_7.html";
-            case "С":
-                return "energy/10_1_10.html";
-            case "Б":
-                return "energy/10_1_9.html";
-            case "В":
-                return "neft/10_1_4.html";
-            case "Л":
-                return "energy/10_1_3.html";
-            case "Р":
-                return "energy/10_1_4.html";
-            case "АПП":
-                return "neft/10_1_1.html";
-            case "БНГ":
-                return "neft/10_1_2.html";
-            case "ТО":
-                return "neft/10_1_3.html";
-            case "ПНГ":
-                return "neft/10_1_5.html";
-            case "ЭНН":
-                return "neft/10_1_6.html";
-            case "ЭННУ":
-                return "neft/10_1_6.html";
-            case "ТОВ":
-                return "neft/10_1_7.html";
-            case "ИС":
-                return "energy/10_1_1.html";
-            case "ГС":
-                return "energy/10_1_2.html";
-            case "ГСУ":
-                return "energy/10_1_2.html";
-            case "РУ":
-                return "energy/10_1_4.html";
-            case "ПГ":
-                return "energy/10_1_5.html";
-            case "ТС":
-                return "energy/10_1_6.html";
-            case "ТАК":
-                return "energy/10_1_9.html";
-            default:
-                return "";
-        }
+        return parsePreferences.getAbbreviationMap().get(abbr);
     }
 
     public static TimeTable parseDocument(Document document, String group) {
@@ -416,4 +371,32 @@ public class DataUtils {
         return timeTable;
     }
 
+    public static TimeTable getTimeTableByIndex(TimeTable timeTable, String index) {
+        String[] ind = index.split(",");
+
+        int i = 0;
+        while (true) {
+            if (i >= timeTable.getDayList().size()){
+                break;
+            }
+
+            Day day = timeTable.getDayList().get(i);
+            boolean is = false;
+            for (String in: ind) {
+                if (Integer.parseInt(in) == day.getId()){
+                    is = true;
+                    break;
+                }
+            }
+
+            if (is) {
+                i++;
+
+            } else {
+                timeTable.getDayList().remove(i);
+            }
+        }
+
+        return timeTable;
+    }
 }

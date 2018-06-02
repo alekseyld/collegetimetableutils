@@ -1,8 +1,11 @@
 package alekseyld.collegetimetableutils;
 
 import alekseyld.collegetimetableutils.entity.Arguments;
+import alekseyld.collegetimetableutils.entity.ParsePreferences;
 import alekseyld.collegetimetableutils.utils.DataUtils;
+import alekseyld.collegetimetableutils.utils.FilesUtils;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,12 +19,36 @@ public class Main {
 
     public static void main(String[] args) {
 
-        if (args.length == 0)
+        if (args.length == 0) {
+            printOutData("Error Arguments empty");
             return;
+        }
+
+        ParsePreferences parsePreferences = getParsePreference();
+
+        if (parsePreferences == null
+                || parsePreferences.getRootUrl() == null
+                || parsePreferences.getAbbreviationMap() == null) {
+            printOutData("Error could not find pref.json file");
+            return;
+        }
+
+        DataUtils.setParsePreferences(parsePreferences);
 
         Arguments arguments = parseArgs(args);
 
         new TimeTableProcessor(arguments).process();
+    }
+
+    private static ParsePreferences getParsePreference() {
+        ParsePreferences parsePreferences = null;
+        try {
+            parsePreferences = FilesUtils.getParsePreference();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return parsePreferences;
     }
 
     private static Arguments parseArgs(String[] args) {
@@ -82,6 +109,9 @@ public class Main {
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
+                    } else if (type.equals("g")) {
+
+                        arguments.index = args[2];
                     }
 
                     break;

@@ -66,11 +66,16 @@ public class TimeTable {
                 List<Lesson> oldLessons = oldTimeTable.getDayList().get(day).getDayLessons();
                 for (int lesson = 0; lesson < lessons.size(); lesson++){
                     if (!lessons.get(lesson).getDoubleName().equals(oldLessons.get(lesson).getDoubleName())){
-                        sb.append(day);
+                        sb.append(day).append(",");
                     }
                 }
             }
         }
+
+        if (sb.length() != 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+
         return sb.toString();
     }
 }
