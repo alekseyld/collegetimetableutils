@@ -300,6 +300,23 @@ public class DataUtils {
         return null;
     }
 
+    public static Lesson minimizeMdk(Lesson lesson) {
+        if (!parsePreferences.isMinimizeMdk() || !lesson.getDoubleName().toUpperCase().contains("МДК")) {
+            return lesson;
+        }
+
+        if (lesson.getName().toUpperCase().contains("МДК")) {
+            String[] l = lesson.getName().split(" ");
+            lesson.setName(l[0] + " " + l[l.length - 2] + " " + l[l.length - 1]);
+
+        } else if (lesson.getSecondName() != null && lesson.getSecondName().toUpperCase().contains("МДК")) {
+            String[] l = lesson.getSecondName().split(" ");
+            lesson.setSecondName(l[0] + l[l.length - 2] + l[l.length - 1]);
+        }
+
+        return lesson;
+    }
+
     public static String convertTimeTableToText(TimeTable timeTable) {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -308,17 +325,17 @@ public class DataUtils {
 
         for (Day day: timeTable.getDayList()) {
             String dayName = getNormalizeDate(day.getDateName());
-            stringBuilder.append(dayName).append("\n");
+            stringBuilder.append(dayName).append("\n\n");
 
             for (Lesson lesson: day.getDayLessons()){
                 if (!lesson.getName().equals(" ") && !lesson.getName().equals("")) {
-                    stringBuilder.append(lesson.getNumber()).append(". ").append(lesson.getDoubleName());
+                    stringBuilder.append(lesson.getNumber()).append(". ").append(minimizeMdk(lesson).getDoubleName());
                     if (lesson.isChange())
                         stringBuilder.append(" ").append("(замена)");
                     stringBuilder.append("\n\n");
                 }
             }
-            if (!dayName.equals(""))
+            if (!dayName.equals("") && day.getId() != timeTable.getDayList().get(timeTable.getDayList().size() - 1).getId())
                 stringBuilder.append("----------------------------------------\n");
         }
 

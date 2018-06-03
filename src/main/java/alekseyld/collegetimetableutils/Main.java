@@ -37,6 +37,11 @@ public class Main {
 
         Arguments arguments = parseArgs(args);
 
+        if (arguments == null) {
+            printOutData("Has arguments error");
+            return;
+        }
+
         new TimeTableProcessor(arguments).process();
     }
 
@@ -52,6 +57,10 @@ public class Main {
     }
 
     private static Arguments parseArgs(String[] args) {
+
+        if (!DataUtils.groupPatternWithoutNum.matcher(args[0].toUpperCase()).matches()) {
+            return null;
+        }
 
         Arguments arguments = new Arguments();
 
