@@ -19,17 +19,27 @@ public class TimeTableProcessor {
 
     }
 
-    private TimeTable getTimeTableFromSite(String group) {
+    private TimeTable getTimeTableFromSite(String group, String urlproxy) {
         TimeTable timeTable = DataUtils.getEmptyWeekTimeTable();
 
+        String url = null;
+        if (urlproxy == null) {
+            url = DataUtils.getGroupUrl(group);
+        }
+
         try {
-            String url = DataUtils.getGroupUrl(group);
-            Document document = Jsoup.connect(url).timeout(5000).get();
-
-            timeTable = DataUtils.parseDocument(document, group);
-
+            for (int i = 0; i < 5; i++) {
+                Document document = Jsoup.connect(urlproxy == null ? url : urlproxy).timeout(4000).get();
+                if (document != null) {
+                    timeTable = DataUtils.parseDocument(document, group);
+                    break;
+                }
+            }
         } catch (Exception e){
-            //e.printStackTrace();
+            if (urlproxy == null) {
+                return getTimeTableFromSite(group, url.replace("109.195.146.243", "ovswg33mnqxhe5i.nblz.ru"));
+            }
+//            e.printStackTrace();
         }
 
         return timeTable;
@@ -39,7 +49,7 @@ public class TimeTableProcessor {
 
         if (arguments.fromSite) {
 
-            return getTimeTableFromSite(arguments.group);
+            return getTimeTableFromSite(arguments.group, null);
         } else {
 
             return FilesUtils.getTimeTableFromCacheSafely(arguments.group);

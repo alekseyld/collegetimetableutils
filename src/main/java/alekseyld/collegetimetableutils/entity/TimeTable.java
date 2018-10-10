@@ -57,15 +57,24 @@ public class TimeTable {
         return this;
     }
 
+    /*
+        Если расписания идентичны, то возвращается пустая строка ""
+        Если есть изменения, то возвращаются индексы измененых дней через ,
+     */
     public String equals(TimeTable oldTimeTable) {
         StringBuilder sb = new StringBuilder("");
 
         if (oldTimeTable != null) {
             for (int day = 0; day < this.getDayList().size(); day++){
                 List<Lesson> lessons = this.getDayList().get(day).getDayLessons();
-                List<Lesson> oldLessons = oldTimeTable.getDayList().get(day).getDayLessons();
+                List<Lesson> oldLessons = null;
+                if (day < oldTimeTable.getDayList().size()) {
+                    oldLessons = oldTimeTable.getDayList().get(day).getDayLessons();
+                }
                 for (int lesson = 0; lesson < lessons.size(); lesson++){
-                    if (!lessons.get(lesson).getDoubleName().equals(oldLessons.get(lesson).getDoubleName())){
+                    if (oldLessons == null
+                            || lesson >= oldLessons.size()
+                            || !lessons.get(lesson).getDoubleName().equals(oldLessons.get(lesson).getDoubleName())){
                         sb.append(day).append(",");
                     }
                 }

@@ -14,6 +14,10 @@ import static java.util.Calendar.SUNDAY;
 
 /**
  * Created by Alekseyld on 07.04.2018.
+ *
+ * "1 АПП" tio
+ * "4 АПП-1" tnoi
+ * "4 АПП-1" toiba "06.09.2018"
  */
 public class Main {
 

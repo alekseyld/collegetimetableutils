@@ -2,7 +2,7 @@
 	"rootUrl": "http://109.195.146.243/wp-content/uploads/time/",
 	"minimizeMdk": "true",
 	"abbreviationMap": {
-		"1": "neft/10_1_8.html",
+		"1": "neft/10_1_10.html",
 		"Т": "energy/10_1_8.html",
 		"Э": "energy/10_1_7.html",
 		"С": "energy/10_1_10.html",
@@ -23,6 +23,6 @@
 		"РУ": "energy/10_1_4.html",
 		"ПГ": "energy/10_1_5.html",
 		"ТС": "energy/10_1_6.html",
-		"ТАК": "energy/10_1_9.html"
+		"ТАК": "energy/10_1_8.html"
 	}
 }

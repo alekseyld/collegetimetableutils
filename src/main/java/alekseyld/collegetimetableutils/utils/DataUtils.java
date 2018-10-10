@@ -318,6 +318,7 @@ public class DataUtils {
     }
 
     public static String convertTimeTableToText(TimeTable timeTable) {
+        if (timeTable == null) return "";
 
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -326,13 +327,19 @@ public class DataUtils {
         for (Day day: timeTable.getDayList()) {
             String dayName = getNormalizeDate(day.getDateName());
             stringBuilder.append(dayName).append("\n\n");
+            boolean needEmptyNum = true;
 
             for (Lesson lesson: day.getDayLessons()){
                 if (!lesson.getName().equals(" ") && !lesson.getName().equals("")) {
+                    needEmptyNum = false;
                     stringBuilder.append(lesson.getNumber()).append(". ").append(minimizeMdk(lesson).getDoubleName());
                     if (lesson.isChange())
                         stringBuilder.append(" ").append("(замена)");
                     stringBuilder.append("\n\n");
+                } else {
+                    if (needEmptyNum) {
+                        stringBuilder.append(lesson.getNumber()).append(". ").append(minimizeMdk(lesson).getDoubleName()).append("-").append("\n\n");
+                    }
                 }
             }
             if (!dayName.equals("") && day.getId() != timeTable.getDayList().get(timeTable.getDayList().size() - 1).getId())
@@ -357,6 +364,9 @@ public class DataUtils {
 
     public static TimeTable getTimeTableByDate(TimeTable timeTable, Date date) {
         while (timeTable.getDayList().size() != 1) {
+            if (timeTable.getDayList().get(0).getDate() == null) {
+                return null;
+            }
 
             if (timeTable.getDayList().get(0).getDate().getTime() == date.getTime()){
                 timeTable.getDayList().set(timeTable.getDayList().size() - 1, timeTable.getDayList().get(0));
